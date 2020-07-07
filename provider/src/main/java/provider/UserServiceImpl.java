@@ -17,17 +17,16 @@
 package provider;
 
 import com.alibaba.dubbo.rpc.RpcContext;
-import org.apache.dubbo.demo.DemoService;
-import org.apache.dubbo.demo.RR;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
+import org.apache.dubbo.demo.UserService;
+import org.apache.dubbo.demo.dto.User;
 
 
-public class DemoServiceImpl implements DemoService {
-    private static final Logger logger = LoggerFactory.getLogger(DemoServiceImpl.class);
+@Slf4j
+public class UserServiceImpl implements UserService {
 
     public String sayHello(String name) {
-        logger.info("Hello " + name + ", request from consumer: " + RpcContext.getContext().getRemoteAddress());
+        log.info("Hello " + name + ", request from consumer: " + RpcContext.getContext().getRemoteAddress());
         try {
             Thread.sleep(10);
         } catch (InterruptedException e) {
@@ -37,13 +36,10 @@ public class DemoServiceImpl implements DemoService {
     }
 
     @Override
-    public RR g(String a) {
-        logger.info("Hello " + a + ", request from consumer: " + RpcContext.getContext().getRemoteAddress());
-
-        RR r = new RR();
-        r.setName(a == null ? "libli" : a);
-        r.setTs(System.currentTimeMillis());
-        return r;
+    public User getUser(Long id) {
+        log.info("Get user id {}", id);
+        System.out.println("Get user id " + id);
+        return User.builder().address("北京中关村").age(30).name("晓晓").id(1L).build();
     }
 
 

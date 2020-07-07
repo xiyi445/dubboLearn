@@ -15,22 +15,27 @@
   See the License for the specific language governing permissions and
   limitations under the License.
   -->
-<beans xmlns="http://www.springframework.org/schema/beans"
-       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-       xmlns:dubbo="http://code.alibabatech.com/schema/dubbo"
-       xsi:schemaLocation="http://www.springframework.org/schema/beans
-       http://www.springframework.org/schema/beans/spring-beans.xsd
-       http://code.alibabatech.com/schema/dubbo
-       http://code.alibabatech.com/schema/dubbo/dubbo.xsd">
+<beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:dubbo="http://dubbo.apache.org/schema/dubbo"
+       xmlns="http://www.springframework.org/schema/beans"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.3.xsd
+       http://dubbo.apache.org/schema/dubbo http://dubbo.apache.org/schema/dubbo/dubbo.xsd">
 
-    <dubbo:application name="demotest-provider" owner="programmer" organization="dubbox" />
 
+    <!-- 应用名字 -->
+    <dubbo:application name="demo-provider"/>
+
+    <!-- 注册中心 -->
     <dubbo:registry address="zookeeper://localhost:2181"/>
 
+    <!-- 暴露的协议和端口号-->
     <dubbo:protocol name="dubbo" port="20878" />
 
-    <bean id="demoService" class="provider.DemoServiceImpl"/>
+    <!-- 提供的接口列表 -->
+    <dubbo:service interface="org.apache.dubbo.demo.UserService" ref="userService"/>
 
-    <dubbo:service interface="org.apache.dubbo.demo.DemoService" ref="demoService"/>
+    <!-- 接口对应的实现 -->
+    <bean id="userService" class="provider.UserServiceImpl"/>
+
 <!--    <dubbo:provider filter="logFilter"/>-->
 </beans>

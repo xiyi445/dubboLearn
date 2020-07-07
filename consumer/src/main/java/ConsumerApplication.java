@@ -15,19 +15,19 @@
  * limitations under the License.
  */
 
-import org.apache.dubbo.demo.DemoService;
-import org.apache.dubbo.demo.RR;
+import org.apache.dubbo.demo.UserService;
+import org.apache.dubbo.demo.dto.User;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 public class ConsumerApplication {
     public static void main(String[] args) throws Exception {
         ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("spring/dubbo-consumer.xml");
-        DemoService demoService = context.getBean("apiService", DemoService.class);
-        String a = demoService.sayHello("aaa");
+        UserService userService = context.getBean(UserService.class);
+        String a = userService.sayHello("aaa");
         System.out.println(a);
-        RR r = demoService.g("eeee");
-        System.out.println(r.getName());
-        System.out.println(r.getTs());
-        System.exit(-1);
+        User user = userService.getUser(1L);
+        System.out.println(user.getName());
+        System.out.println(user);
+        System.in.read();
     }
 }

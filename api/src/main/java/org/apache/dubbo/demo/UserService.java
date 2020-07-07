@@ -17,8 +17,17 @@
 package org.apache.dubbo.demo;
 
 
-public interface DemoService {
+import org.apache.dubbo.demo.dto.User;
+
+public interface UserService {
 
     String sayHello(String name);
-    RR g(String a);
+
+    /**
+     * 获取用户信息
+     *
+     * @param id
+     * @return
+     */
+    User getUser(Long id);
 }
